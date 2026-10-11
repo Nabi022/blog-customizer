@@ -33,6 +33,7 @@ export const ArticleParamsForm = ({
 }: ArticleParamsFormProps): React.JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [formState, setFormState] = useState<ArticleStateType>(articleState);
+  const [radioGroupKey, setRadioGroupKey] = useState<number>(0);
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -68,6 +69,7 @@ export const ArticleParamsForm = ({
     event.preventDefault();
     setFormState(defaultArticleState);
     onApply(defaultArticleState);
+    setRadioGroupKey((prevKey) => prevKey + 1);
   };
 
   return (
@@ -89,6 +91,7 @@ export const ArticleParamsForm = ({
             onChange={handleChange('fontFamilyOption')}
           />
           <RadioGroup
+            key={radioGroupKey}
             name={FONT_SIZE_RADIO_NAME}
             title="Размер шрифта"
             options={fontSizeOptions}
